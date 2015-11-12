@@ -29,14 +29,14 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        private int _autoKlasseIndex;
-        public int AutoKlasseIndex
+        private AutoKlasse _autoKlasse;
+        public AutoKlasse AutoKlasse
         {
-            get { return _autoKlasseIndex; }
+            get { return _autoKlasse; }
             set
             {
-                _autoKlasseIndex = value;
-                this.OnPropertyChanged(p => p.AutoKlasseIndex);
+                _autoKlasse = value;
+                this.OnPropertyChanged(p => p.AutoKlasse);
             }
         }
 
@@ -73,7 +73,7 @@ namespace AutoReservation.Common.DataTransferObjects
             {
                 error.AppendLine("- Tagestarif muss grösser als 0 sein.");
             }
-            if (AutoKlasseIndex == (int) AutoKlasse.Luxusklasse && Basistarif <= 0)
+            if (AutoKlasse == AutoReservation.Common.DataTransferObjects.AutoKlasse.Luxusklasse && Basistarif <= 0)
             {
                 error.AppendLine("- Basistarif eines Luxusautos muss grösser als 0 sein.");
             }
@@ -90,7 +90,7 @@ namespace AutoReservation.Common.DataTransferObjects
                 Id = Id,
                 Marke = Marke,
                 Tagestarif = Tagestarif,
-                AutoKlasseIndex = AutoKlasseIndex,
+                AutoKlasse = AutoKlasse,
                 Basistarif = Basistarif
             };
         }
@@ -103,7 +103,7 @@ namespace AutoReservation.Common.DataTransferObjects
                 Marke,
                 Tagestarif,
                 Basistarif,
-                AutoKlasseIndex);
+                AutoKlasse);
         }
     }
 }
