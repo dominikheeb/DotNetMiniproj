@@ -154,7 +154,7 @@
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="LuxusklasseAuto" BaseType="AutoReservationModel.Auto" >
-          <Property Name="Basistarif" Type="String" Nullable="false" />
+          <Property Name="Basistarif" Type="Int32" Nullable="true" />
         </EntityType>
         <EntityType Name="MittelklasseAuto" BaseType="AutoReservationModel.Auto" />
         <EntityType Name="StandardAuto" BaseType="AutoReservationModel.Auto" />

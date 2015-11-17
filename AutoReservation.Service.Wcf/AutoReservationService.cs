@@ -15,10 +15,13 @@ namespace AutoReservation.Service.Wcf
             Console.WriteLine("Calling: " + new StackTrace().GetFrame(1).GetMethod().Name);
         }
 
-        public Collection<AutoDto> GetAllAutos()
+        public Collection<AutoDto> Autos
         {
-            WriteActualMethod();
-            throw new NotImplementedException();
+            get
+            {
+                WriteActualMethod();
+                throw new NotImplementedException();
+            }
         }
 
         public AutoDto GetAuto(int autoId)
@@ -27,7 +30,7 @@ namespace AutoReservation.Service.Wcf
             throw new NotImplementedException();
         }
 
-        public void AddAuto(AutoDto auto)
+        public void InsertAuto(AutoDto auto)
         {
             WriteActualMethod();
             throw new NotImplementedException();
@@ -45,10 +48,13 @@ namespace AutoReservation.Service.Wcf
             throw new NotImplementedException();
         }
 
-        public Collection<KundeDto> GetAllKunde()
+        public Collection<KundeDto> Kunden
         {
-            WriteActualMethod();
-            throw new NotImplementedException();
+            get
+            {
+                WriteActualMethod();
+                throw new NotImplementedException();
+            }
         }
 
         public KundeDto GetKunde(int kundeId)
@@ -57,7 +63,7 @@ namespace AutoReservation.Service.Wcf
             throw new NotImplementedException();
         }
 
-        public void AddKunde(KundeDto kunde)
+        public void InsertKunde(KundeDto kunde)
         {
             WriteActualMethod();
             throw new NotImplementedException();
@@ -75,10 +81,13 @@ namespace AutoReservation.Service.Wcf
             throw new NotImplementedException();
         }
 
-        public Collection<ReservationDto> GetAllResevation()
+        public Collection<ReservationDto> Reservationen
         {
-            WriteActualMethod();
-            throw new NotImplementedException();
+            get
+            {
+                WriteActualMethod();
+                throw new NotImplementedException();
+            }
         }
 
         public ReservationDto GetReservation(int reservationNr)
@@ -87,7 +96,7 @@ namespace AutoReservation.Service.Wcf
             throw new NotImplementedException();
         }
 
-        public void AddReserveration(ReservationDto reservation)
+        public void InsertReservation(ReservationDto reservation)
         {
             WriteActualMethod();
             throw new NotImplementedException();
