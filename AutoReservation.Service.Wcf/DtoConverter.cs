@@ -140,7 +140,7 @@ namespace AutoReservation.Service.Wcf
             if (source == null) { return null; }
             if (converter == null) { return null; }
 
-            return source.Select(s => converter(s)).ToList();
+            return source.Select(converter).ToList();
         }
     }
 
