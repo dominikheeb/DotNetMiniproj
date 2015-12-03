@@ -32,12 +32,10 @@ namespace AutoReservation.BusinessLayer.Testing
         public void Test_UpdateAuto()
         {
             Auto auto = Target.GetAuto(1);
-            auto.Basistarif = 13;
             auto.Tagestarif = 15;
             auto.Marke = "Ferrari";
 
             Target.UpdateAuto(Target.GetAuto(1), auto);
-            Assert.AreEqual(13, Target.GetAuto(1).Basistarif);
             Assert.AreEqual(15, Target.GetAuto(1).Tagestarif);
             Assert.AreEqual("Ferrari", Target.GetAuto(1).Marke);
         }
