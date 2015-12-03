@@ -101,12 +101,12 @@ namespace AutoReservation.BusinessLayer
             return _context.Reservation.AsNoTracking().ToList();
         }
 
-        Reservation GetReservation(int reservationNr)
+        public Reservation GetReservation(int reservationNr)
         {
             return _context.Reservation.AsNoTracking().SingleOrDefault(x => x.ReservationNr == reservationNr);
         }
 
-        void AddReserveration(Reservation reservation)
+        public void AddReserveration(Reservation reservation)
         {
             _context.Reservation.Add(reservation);
             _context.SaveChanges();
@@ -129,7 +129,7 @@ namespace AutoReservation.BusinessLayer
             _context.Entry(original).State = EntityState.Detached;
         }
 
-        void DeleteReservation(Reservation reservation)
+        public void DeleteReservation(Reservation reservation)
         {
             _context.Reservation.Attach(reservation);
             _context.Reservation.Remove(reservation);

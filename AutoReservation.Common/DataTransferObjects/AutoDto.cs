@@ -51,8 +51,8 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        private Nullable<int> _basistarif;
-        public Nullable<int> Basistarif
+        private int? _basistarif;
+        public int? Basistarif
         {
             get { return _basistarif; }
             set

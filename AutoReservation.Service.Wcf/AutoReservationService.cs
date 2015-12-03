@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using AutoReservation.BusinessLayer;
 using AutoReservation.Common.DataTransferObjects;
 using AutoReservation.Common.Interfaces;
@@ -9,100 +10,109 @@ namespace AutoReservation.Service.Wcf
 {
     public class AutoReservationService : IAutoReservationService
     {
-        private AutoReservationBusinessComponent businessComponent = new AutoReservationBusinessComponent();
+        private readonly AutoReservationBusinessComponent _businessComponent = new AutoReservationBusinessComponent();
         private static void WriteActualMethod()
         {
             Console.WriteLine("Calling: " + new StackTrace().GetFrame(1).GetMethod().Name);
         }
 
-        public Collection<AutoDto> GetAllAutos()
+        public Collection<AutoDto> Autos
         {
-            WriteActualMethod();
-            throw new NotImplementedException();
+            get
+            {
+                WriteActualMethod();
+                return new Collection<AutoDto>(_businessComponent.GetAllAutos().ConvertToDtos());
+            }
         }
 
         public AutoDto GetAuto(int autoId)
         {
             WriteActualMethod();
-            throw new NotImplementedException();
+            return _businessComponent.GetAuto(autoId).ConvertToDto();
         }
 
-        public void AddAuto(AutoDto auto)
+        public void InsertAuto(AutoDto auto)
         {
             WriteActualMethod();
-            throw new NotImplementedException();
+            _businessComponent.AddAuto(auto.ConvertToEntity());
         }
 
         public void UpdateAuto(AutoDto modified, AutoDto original)
         {
             WriteActualMethod();
-            throw new NotImplementedException();
+            _businessComponent.UpdateAuto(modified.ConvertToEntity(),original.ConvertToEntity());
         }
 
         public void DeleteAuto(AutoDto auto)
         {
             WriteActualMethod();
-            throw new NotImplementedException();
+            _businessComponent.DeleteAuto(auto.ConvertToEntity());
         }
 
-        public Collection<KundeDto> GetAllKunde()
+        public Collection<KundeDto> Kunden
         {
-            WriteActualMethod();
-            throw new NotImplementedException();
+            get
+            {
+                WriteActualMethod();
+                return new Collection<KundeDto>(_businessComponent.GetAllKunde().ConvertToDtos());
+            }
         }
 
         public KundeDto GetKunde(int kundeId)
         {
             WriteActualMethod();
-            throw new NotImplementedException();
+            return _businessComponent.GetKunde(kundeId).ConvertToDto();
         }
 
-        public void AddKunde(KundeDto kunde)
+        public void InsertKunde(KundeDto kunde)
         {
             WriteActualMethod();
-            throw new NotImplementedException();
+            _businessComponent.AddKunde(kunde.ConvertToEntity());
         }
 
         public void UpdateKunde(KundeDto modified, KundeDto original)
         {
             WriteActualMethod();
-            throw new NotImplementedException();
+            _businessComponent.UpdateKunde(modified.ConvertToEntity(),original.ConvertToEntity());
         }
 
         public void DeleteKunde(KundeDto kunde)
         {
             WriteActualMethod();
-            throw new NotImplementedException();
+            _businessComponent.DeleteKunde(kunde.ConvertToEntity());
         }
 
-        public Collection<ReservationDto> GetAllResevation()
+        public Collection<ReservationDto> Reservationen
         {
-            WriteActualMethod();
-            throw new NotImplementedException();
+            get
+            {
+                WriteActualMethod();
+                return new Collection<ReservationDto>(_businessComponent.GetAllResevation().ConvertToDtos());
+            }
         }
 
         public ReservationDto GetReservation(int reservationNr)
         {
             WriteActualMethod();
-            throw new NotImplementedException();
+            return _businessComponent.GetReservation(reservationNr).ConvertToDto();
         }
 
-        public void AddReserveration(ReservationDto reservation)
+        public void InsertReservation(ReservationDto reservation)
         {
             WriteActualMethod();
-            throw new NotImplementedException();
+            _businessComponent.AddReserveration(reservation.ConvertToEntity());
         }
 
         public void UpdateReservation(ReservationDto modified, ReservationDto original)
         {
             WriteActualMethod();
-            throw new NotImplementedException();
+            _businessComponent.UpdateReservation(modified.ConvertToEntity(),original.ConvertToEntity());
         }
 
         public void DeleteReservation(ReservationDto reservation)
         {
             WriteActualMethod();
-            throw new NotImplementedException();
+            _businessComponent.DeleteReservation(reservation.ConvertToEntity());
         }
     }
 }
