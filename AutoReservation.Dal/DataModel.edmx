@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AutoReservationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AutoReservationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Auto">
           <Key>
             <PropertyRef Name="Id" />
@@ -75,30 +75,41 @@
             <End Role="Reservation" EntitySet="Reservation" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AutoReservationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Auto">
+        <EntityContainer Name="AutoReservationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Auto" EntityType="AutoReservationModel.Auto" />
+          <EntitySet Name="Kunde" EntityType="AutoReservationModel.Kunde" />
+          <EntitySet Name="Reservation" EntityType="AutoReservationModel.Reservation" />
+          <AssociationSet Name="FK_Reservation_Auto" Association="AutoReservationModel.FK_Reservation_Auto">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Kunde" Association="AutoReservationModel.FK_Reservation_Kunde">
+            <End Role="Kunde" EntitySet="Kunde" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Auto" Abstract="true">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
-          <Property Name="Marke" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" ConcurrencyMode="Fixed" />
-          <Property Name="AutoKlasse" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+          <Property Name="Marke" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" ConcurrencyMode="Fixed" />
           <Property Name="Tagestarif" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
-          <NavigationProperty Name="Reservation" Relationship="Self.FK_Reservation_Auto" FromRole="Auto" ToRole="Reservation" />
+          <NavigationProperty Name="Reservation" Relationship="AutoReservationModel.FK_Reservation_Auto" FromRole="Auto" ToRole="Reservation" />
         </EntityType>
         <EntityType Name="Kunde">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
-          <Property Name="Nachname" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" ConcurrencyMode="Fixed" />
-          <Property Name="Vorname" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" ConcurrencyMode="Fixed" />
+          <Property Name="Nachname" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" ConcurrencyMode="Fixed" />
+          <Property Name="Vorname" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" ConcurrencyMode="Fixed" />
           <Property Name="Geburtsdatum" Type="DateTime" Nullable="false" Precision="3" ConcurrencyMode="Fixed" />
-          <NavigationProperty Name="Reservation" Relationship="Self.FK_Reservation_Kunde" FromRole="Kunde" ToRole="Reservation" />
+          <NavigationProperty Name="Reservation" Relationship="AutoReservationModel.FK_Reservation_Kunde" FromRole="Kunde" ToRole="Reservation" />
         </EntityType>
         <EntityType Name="Reservation">
           <Key>
@@ -109,14 +120,14 @@
           <Property Name="KundeId" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
           <Property Name="Von" Type="DateTime" Nullable="false" Precision="3" ConcurrencyMode="Fixed" />
           <Property Name="Bis" Type="DateTime" Nullable="false" Precision="3" ConcurrencyMode="Fixed" />
-          <NavigationProperty Name="Auto" Relationship="Self.FK_Reservation_Auto" FromRole="Reservation" ToRole="Auto" />
-          <NavigationProperty Name="Kunde" Relationship="Self.FK_Reservation_Kunde" FromRole="Reservation" ToRole="Kunde" />
+          <NavigationProperty Name="Auto" Relationship="AutoReservationModel.FK_Reservation_Auto" FromRole="Reservation" ToRole="Auto" />
+          <NavigationProperty Name="Kunde" Relationship="AutoReservationModel.FK_Reservation_Kunde" FromRole="Reservation" ToRole="Kunde" />
         </EntityType>
         <Association Name="FK_Reservation_Auto">
-          <End Role="Auto" Type="Self.Auto" Multiplicity="1">
+          <End Type="AutoReservationModel.Auto" Role="Auto" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <End Type="AutoReservationModel.Reservation" Role="Reservation" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Auto">
               <PropertyRef Name="Id" />
@@ -127,10 +138,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Reservation_Kunde">
-          <End Role="Kunde" Type="Self.Kunde" Multiplicity="1">
+          <End Type="AutoReservationModel.Kunde" Role="Kunde" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <End Type="AutoReservationModel.Reservation" Role="Reservation" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Kunde">
               <PropertyRef Name="Id" />
@@ -140,25 +151,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="AutoReservationEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Auto" EntityType="Self.Auto" />
-          <EntitySet Name="Kunde" EntityType="Self.Kunde" />
-          <EntitySet Name="Reservation" EntityType="Self.Reservation" />
-          <AssociationSet Name="FK_Reservation_Auto" Association="Self.FK_Reservation_Auto">
-            <End Role="Auto" EntitySet="Auto" />
-            <End Role="Reservation" EntitySet="Reservation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reservation_Kunde" Association="Self.FK_Reservation_Kunde">
-            <End Role="Kunde" EntitySet="Kunde" />
-            <End Role="Reservation" EntitySet="Reservation" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="LuxusklasseAuto" BaseType="AutoReservationModel.Auto" >
-          <Property Name="Basistarif" Type="Int32" Nullable="true" />
+          <Property Name="Basistarif" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="MittelklasseAuto" BaseType="AutoReservationModel.Auto" />
         <EntityType Name="StandardAuto" BaseType="AutoReservationModel.Auto" />
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -169,35 +167,47 @@
               <MappingFragment StoreEntitySet="Auto">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Tagestarif" ColumnName="Tagestarif" />
-                <ScalarProperty Name="AutoKlasse" ColumnName="AutoKlasse" />
                 <ScalarProperty Name="Marke" ColumnName="Marke" />
               </MappingFragment>
             </EntityTypeMapping>
-            <EntityTypeMapping TypeName="AutoReservationModel.LuxusklasseAuto">
+            <EntityTypeMapping TypeName="IsTypeOf(AutoReservationModel.LuxusklasseAuto)">
               <MappingFragment StoreEntitySet="Auto">
-                <ScalarProperty Name="Basistarif" ColumnName="Basistarif" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Basistarif" ColumnName="Basistarif" />
+                <Condition ColumnName="AutoKlasse" Value="0" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(AutoReservationModel.MittelklasseAuto)">
+              <MappingFragment StoreEntitySet="Auto">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <Condition ColumnName="AutoKlasse" Value="1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(AutoReservationModel.StandardAuto)">
+              <MappingFragment StoreEntitySet="Auto">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <Condition ColumnName="AutoKlasse" Value="2" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Kunde">
             <EntityTypeMapping TypeName="AutoReservationModel.Kunde">
               <MappingFragment StoreEntitySet="Kunde">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Nachname" ColumnName="Nachname" />
-                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
                 <ScalarProperty Name="Geburtsdatum" ColumnName="Geburtsdatum" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Reservation">
             <EntityTypeMapping TypeName="AutoReservationModel.Reservation">
               <MappingFragment StoreEntitySet="Reservation">
-                <ScalarProperty Name="ReservationNr" ColumnName="Id" />
-                <ScalarProperty Name="AutoId" ColumnName="AutoId" />
-                <ScalarProperty Name="KundeId" ColumnName="KundeId" />
-                <ScalarProperty Name="Von" ColumnName="Von" />
                 <ScalarProperty Name="Bis" ColumnName="Bis" />
+                <ScalarProperty Name="Von" ColumnName="Von" />
+                <ScalarProperty Name="KundeId" ColumnName="KundeId" />
+                <ScalarProperty Name="AutoId" ColumnName="AutoId" />
+                <ScalarProperty Name="ReservationNr" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
