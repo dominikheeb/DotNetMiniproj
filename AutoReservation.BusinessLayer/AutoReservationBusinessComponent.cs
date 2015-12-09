@@ -39,7 +39,7 @@ namespace AutoReservation.BusinessLayer
                 _context.Entry(original).CurrentValues.SetValues(modified);
                 _context.SaveChanges();
             }
-            catch (LocalOptimisticConcurrencyException<Reservation> e)
+            catch (LocalOptimisticConcurrencyException<Auto> e)
             {
                 HandleDbConcurrencyException<Auto>(_context, original);
             }
@@ -80,7 +80,7 @@ namespace AutoReservation.BusinessLayer
                 _context.Entry(original).CurrentValues.SetValues(modified);
                 _context.SaveChanges();
             }
-            catch (LocalOptimisticConcurrencyException<Reservation> e)
+            catch (LocalOptimisticConcurrencyException<Kunde> e)
             {
                 HandleDbConcurrencyException<Kunde>(_context, original);
             }

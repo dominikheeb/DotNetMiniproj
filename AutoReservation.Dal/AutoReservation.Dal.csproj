@@ -91,10 +91,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel.Designer.cs">
+    <Compile Include="AutoReservation.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.edmx</DependentUpon>
+      <DependentUpon>AutoReservation.edmx</DependentUpon>
     </Compile>
     <Compile Include="Kunde.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
@@ -117,13 +117,13 @@
     <None Include="..\MsTeMiniproject.snk">
       <Link>MsTeMiniproject.snk</Link>
     </None>
-    <EntityDeploy Include="DataModel.edmx">
+    <EntityDeploy Include="AutoReservation.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DataModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>AutoReservation.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="App.Config" />
-    <None Include="DataModel.edmx.diagram">
-      <DependentUpon>DataModel.edmx</DependentUpon>
+    <None Include="AutoReservation.edmx.diagram">
+      <DependentUpon>AutoReservation.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -133,12 +133,12 @@
   <ItemGroup>
     <Content Include="DataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataModel.edmx</DependentUpon>
+      <DependentUpon>AutoReservation.edmx</DependentUpon>
       <LastGenOutput>DataModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="DataModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataModel.edmx</DependentUpon>
+      <DependentUpon>AutoReservation.edmx</DependentUpon>
       <LastGenOutput>DataModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>

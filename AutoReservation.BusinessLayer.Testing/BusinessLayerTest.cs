@@ -35,7 +35,7 @@ namespace AutoReservation.BusinessLayer.Testing
             auto.Tagestarif = 15;
             auto.Marke = "Ferrari";
 
-            Target.UpdateAuto(Target.GetAuto(1), auto);
+            Target.UpdateAuto(auto, Target.GetAuto(1));
             Assert.AreEqual(15, Target.GetAuto(1).Tagestarif);
             Assert.AreEqual("Ferrari", Target.GetAuto(1).Marke);
         }
@@ -49,7 +49,7 @@ namespace AutoReservation.BusinessLayer.Testing
             kunde.Vorname = "Urs";
             kunde.Nachname = "Meier";
 
-            Target.UpdateKunde(Target.GetKunde(1), kunde);
+            Target.UpdateKunde(kunde, Target.GetKunde(1));
             Assert.AreEqual(date, Target.GetKunde(1).Geburtsdatum);
             Assert.AreEqual("Urs", Target.GetKunde(1).Vorname);
             Assert.AreEqual("Meier", Target.GetKunde(1).Nachname);
