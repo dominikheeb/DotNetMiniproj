@@ -9,8 +9,8 @@ namespace AutoReservation.Common.DataTransferObjects
     [DataContract]
     public class ReservationDto : DtoBase<ReservationDto>
     {
-        [DataMember]
         private int _reservationNr;
+        [DataMember]
         public int ReservationNr
         {
             get { return _reservationNr; }
@@ -21,8 +21,8 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        [DataMember]
         private int _autoId;
+        [DataMember]
         public int AutoId
         {
             get { return _autoId; }
@@ -33,8 +33,8 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        [DataMember]
         private int _kundeId;
+        [DataMember]
         public int KundeId
         {
             get { return _kundeId; }
@@ -45,8 +45,8 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        [DataMember]
         private DateTime _von;
+        [DataMember]
         public System.DateTime Von
         {
             get { return _von; }
@@ -57,8 +57,8 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        [DataMember]
         private DateTime _bis;
+        [DataMember]
         public System.DateTime Bis
         {
             get { return _bis; }
@@ -69,8 +69,8 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        [DataMember]
         private AutoDto _auto;
+        [DataMember]
         public virtual AutoDto Auto
         {
             get { return _auto; }
@@ -81,8 +81,8 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        [DataMember]
         private KundeDto _kunde;
+        [DataMember]
         public virtual KundeDto Kunde {
             get { return _kunde; }
             set

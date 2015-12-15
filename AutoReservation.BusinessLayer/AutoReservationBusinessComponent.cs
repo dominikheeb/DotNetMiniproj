@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using AutoReservation.Dal;
 
@@ -7,135 +8,162 @@ namespace AutoReservation.BusinessLayer
 {
     public class AutoReservationBusinessComponent
     {
-        private readonly AutoReservationEntities _context;
-        public AutoReservationBusinessComponent()
-        {
-            _context = new AutoReservationEntities();
-        }
 
         public IList<Auto> GetAllAutos()
         {
-            return _context.Auto.AsNoTracking().ToList();
+            using (AutoReservationEntities context = new AutoReservationEntities())
+            {
+                return context.Auto.AsNoTracking().ToList();
+            }
         }
 
         public Auto GetAuto(int autoId)
         {
-            return _context.Auto.AsNoTracking().SingleOrDefault(x => x.Id == autoId);
+            using (AutoReservationEntities context = new AutoReservationEntities())
+            {
+                return context.Auto.AsNoTracking().SingleOrDefault(x => x.Id == autoId);
+            }
         }
 
         public void AddAuto(Auto auto)
         {
-            _context.Auto.Add(auto);
-            _context.SaveChanges();
+            using (AutoReservationEntities context = new AutoReservationEntities())
+            {
+                context.Auto.Add(auto);
+                context.SaveChanges();
+            }
 
-            _context.Entry(auto).State = EntityState.Detached;
         }
 
         public void UpdateAuto(Auto modified, Auto original)
         {
-            try
+            using (AutoReservationEntities context = new AutoReservationEntities())
             {
-                _context.Auto.Attach(original);
-                _context.Entry(original).CurrentValues.SetValues(modified);
-                _context.SaveChanges();
+                try
+                {
+                    context.Auto.Attach(original);
+                    context.Entry(original).CurrentValues.SetValues(modified);
+                    context.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException e)
+                {
+                    HandleDbConcurrencyException(context, original);
+                }
             }
-            catch (LocalOptimisticConcurrencyException<Auto> e)
-            {
-                HandleDbConcurrencyException<Auto>(_context, original);
-            }
-            _context.Entry(original).State = EntityState.Detached;
         }
 
         public void DeleteAuto(Auto auto)
         {
-            _context.Auto.Attach(auto);
-            _context.Auto.Remove(auto);
-            _context.SaveChanges();
-            _context.Entry(auto).State = EntityState.Detached;
+            using (AutoReservationEntities context = new AutoReservationEntities())
+            {
+                context.Auto.Attach(auto);
+                context.Auto.Remove(auto);
+                context.SaveChanges();
+            }
         }
 
         public IList<Kunde> GetAllKunde()
         {
-            return _context.Kunde.AsNoTracking().ToList();
+            using (AutoReservationEntities context = new AutoReservationEntities())
+            {
+                return context.Kunde.AsNoTracking().ToList();
+            }
         }
 
         public Kunde GetKunde(int kundeId)
         {
-            return _context.Kunde.AsNoTracking().SingleOrDefault(x => x.Id == kundeId);
+            using (AutoReservationEntities context = new AutoReservationEntities())
+            {
+                return context.Kunde.AsNoTracking().SingleOrDefault(x => x.Id == kundeId);
+            }
         }
 
         public void AddKunde(Kunde kunde)
         {
-            _context.Kunde.Add(kunde);
-            _context.SaveChanges();
-
-            _context.Entry(kunde).State = EntityState.Detached;
+            using (AutoReservationEntities context = new AutoReservationEntities())
+            {
+                context.Kunde.Add(kunde);
+                context.SaveChanges();
+            }
         }
 
         public void UpdateKunde(Kunde modified, Kunde original)
         {
-            try
+            using (AutoReservationEntities context = new AutoReservationEntities())
             {
-                _context.Kunde.Attach(original);
-                _context.Entry(original).CurrentValues.SetValues(modified);
-                _context.SaveChanges();
+                try
+                {
+                    context.Kunde.Attach(original);
+                    context.Entry(original).CurrentValues.SetValues(modified);
+                    context.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException e)
+                {
+                    HandleDbConcurrencyException(context, original);
+                }
             }
-            catch (LocalOptimisticConcurrencyException<Kunde> e)
-            {
-                HandleDbConcurrencyException<Kunde>(_context, original);
-            }
-            _context.Entry(original).State = EntityState.Detached;
         }
 
         public void DeleteKunde(Kunde kunde)
         {
-            _context.Kunde.Attach(kunde);
-            _context.Kunde.Remove(kunde);
-            _context.SaveChanges();
-
-            _context.Entry(kunde).State = EntityState.Detached;
+            using (AutoReservationEntities context = new AutoReservationEntities())
+            {
+                context.Kunde.Attach(kunde);
+                context.Kunde.Remove(kunde);
+                context.SaveChanges();
+            }
         }
 
         public IList<Reservation> GetAllResevation()
         {
-            return _context.Reservation.AsNoTracking().ToList();
+            using (AutoReservationEntities context = new AutoReservationEntities())
+            {
+                return context.Reservation.Include(r => r.Auto).Include(r => r.Kunde).AsNoTracking().ToList();
+            }
         }
 
         public Reservation GetReservation(int reservationNr)
         {
-            return _context.Reservation.AsNoTracking().SingleOrDefault(x => x.ReservationNr == reservationNr);
+            using (AutoReservationEntities context = new AutoReservationEntities())
+            {
+                return context.Reservation.Include(r => r.Auto).Include(r => r.Kunde).AsNoTracking().SingleOrDefault(x => x.ReservationNr == reservationNr);
+            }
         }
 
         public void AddReserveration(Reservation reservation)
         {
-            _context.Reservation.Add(reservation);
-            _context.SaveChanges();
-
-            _context.Entry(reservation).State = EntityState.Detached;
+            using (AutoReservationEntities context = new AutoReservationEntities())
+            {
+                context.Reservation.Add(reservation);
+                context.SaveChanges();
+            }
         }
 
         public void UpdateReservation(Reservation modified, Reservation original)
         {
-            try
+            using (AutoReservationEntities context = new AutoReservationEntities())
             {
-                _context.Reservation.Attach(original);
-                _context.Entry(original).CurrentValues.SetValues(modified);
-                _context.SaveChanges();
+                try
+                {
+                    context.Reservation.Attach(original);
+                    context.Entry(original).CurrentValues.SetValues(modified);
+                    context.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException e)
+                {
+                    HandleDbConcurrencyException(context, original);
+                }
             }
-            catch (LocalOptimisticConcurrencyException<Reservation> e)
-            {
-                HandleDbConcurrencyException<Reservation>(_context, original);
-            }
-            _context.Entry(original).State = EntityState.Detached;
         }
 
         public void DeleteReservation(Reservation reservation)
         {
-            _context.Reservation.Attach(reservation);
-            _context.Reservation.Remove(reservation);
-            _context.SaveChanges();
-
-            _context.Entry(reservation).State = EntityState.Detached;
+            using (AutoReservationEntities context = new AutoReservationEntities())
+            {
+                context.Reservation.Attach(reservation);
+                context.Reservation.Remove(reservation);
+                context.SaveChanges();
+            }
         }
         
         private static void HandleDbConcurrencyException<T>(AutoReservationEntities context, T original) where T : class

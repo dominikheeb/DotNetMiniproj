@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Documents.Serialization;
 using System.Windows.Input;
 using AutoReservation.Common.DataTransferObjects;
 using AutoReservation.Common.Extensions;
 using AutoReservation.Ui.Factory;
-using Ninject;
 
 namespace AutoReservation.Ui.ViewModels
 {

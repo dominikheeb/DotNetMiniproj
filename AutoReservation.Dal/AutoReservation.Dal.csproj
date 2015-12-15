@@ -79,17 +79,17 @@
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
     <Compile Include="Auto.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>AutoReservation.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel.Context.cs">
+    <Compile Include="AutoReservation.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.Context.tt</DependentUpon>
+      <DependentUpon>AutoReservation.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel.cs">
+    <Compile Include="AutoReservation.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>AutoReservation.tt</DependentUpon>
     </Compile>
     <Compile Include="AutoReservation.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -97,20 +97,20 @@
       <DependentUpon>AutoReservation.edmx</DependentUpon>
     </Compile>
     <Compile Include="Kunde.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>AutoReservation.tt</DependentUpon>
     </Compile>
     <Compile Include="LuxusklasseAuto.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>AutoReservation.tt</DependentUpon>
     </Compile>
     <Compile Include="MittelklasseAuto.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>AutoReservation.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reservation.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>AutoReservation.tt</DependentUpon>
     </Compile>
     <Compile Include="StandardAuto.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>AutoReservation.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -131,15 +131,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataModel.Context.tt">
+    <Content Include="AutoReservation.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>AutoReservation.edmx</DependentUpon>
-      <LastGenOutput>DataModel.Context.cs</LastGenOutput>
+      <LastGenOutput>AutoReservation.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DataModel.tt">
+    <Content Include="AutoReservation.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>AutoReservation.edmx</DependentUpon>
-      <LastGenOutput>DataModel.cs</LastGenOutput>
+      <LastGenOutput>AutoReservation.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

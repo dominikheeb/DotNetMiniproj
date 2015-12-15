@@ -9,8 +9,8 @@ namespace AutoReservation.Common.DataTransferObjects
     [DataContract]
     public class KundeDto : DtoBase<KundeDto>
     {
-        [DataMember]
         private int _id;
+        [DataMember]
         public int Id
         {
             get { return _id; }
@@ -20,9 +20,9 @@ namespace AutoReservation.Common.DataTransferObjects
                 this.OnPropertyChanged(p => p.Id);
             }
         }
-
-        [DataMember]
+        
         private string _nachname;
+        [DataMember]
         public string Nachname
         {
             get { return _nachname; }
@@ -32,9 +32,9 @@ namespace AutoReservation.Common.DataTransferObjects
                 this.OnPropertyChanged(p => p.Nachname);
             }
         }
-
-        [DataMember]
+        
         private string _vorname;
+        [DataMember]
         public string Vorname
         {
             get { return _vorname; }
@@ -44,9 +44,9 @@ namespace AutoReservation.Common.DataTransferObjects
                 this.OnPropertyChanged(p => p.Vorname);
             }
         }
-
-        [DataMember]
+        
         private DateTime _geburtsdatum;
+        [DataMember]
         public System.DateTime Geburtsdatum
         {
             get { return _geburtsdatum; }

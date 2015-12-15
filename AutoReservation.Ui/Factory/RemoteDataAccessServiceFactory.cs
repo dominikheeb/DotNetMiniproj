@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ServiceModel;
 using AutoReservation.Common.Interfaces;
 
 namespace AutoReservation.Ui.Factory
@@ -12,9 +7,6 @@ namespace AutoReservation.Ui.Factory
     {
         public IAutoReservationService GetService()
         {
-            var bind = new BasicHttpBinding();
-            //var addr = new EndpointAddress("http://localhost:8732/AutoReservationService");
-            //var factory = new ChannelFactory<IAutoReservationService>(bind, addr);
             var factory = new ChannelFactory<IAutoReservationService>("AutoReservationService");
             // Proxy erzeugen
             return factory.CreateChannel();

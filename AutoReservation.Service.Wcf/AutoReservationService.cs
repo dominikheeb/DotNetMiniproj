@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Runtime.Serialization;
+using System.ServiceModel;
 using AutoReservation.BusinessLayer;
 using AutoReservation.Common.DataTransferObjects;
 using AutoReservation.Common.Interfaces;
+using AutoReservation.Dal;
 
 namespace AutoReservation.Service.Wcf
 {
     public class AutoReservationService : IAutoReservationService
     {
-        private readonly AutoReservationBusinessComponent _businessComponent = new AutoReservationBusinessComponent();
+        private readonly AutoReservationBusinessComponent _businessComponent;
+
+        public AutoReservationService() 
+        {
+            _businessComponent = new AutoReservationBusinessComponent();
+        }
+
         private static void WriteActualMethod()
         {
             Console.WriteLine("Calling: " + new StackTrace().GetFrame(1).GetMethod().Name);
@@ -41,7 +47,14 @@ namespace AutoReservation.Service.Wcf
         public void UpdateAuto(AutoDto modified, AutoDto original)
         {
             WriteActualMethod();
-            _businessComponent.UpdateAuto(modified.ConvertToEntity(),original.ConvertToEntity());
+            try
+            {
+                _businessComponent.UpdateAuto(modified.ConvertToEntity(), original.ConvertToEntity());
+            }
+            catch (LocalOptimisticConcurrencyException<Auto> e)
+            {
+                throw new FaultException<AutoDto>(e.MergedEntity.ConvertToDto());
+            }
         }
 
         public void DeleteAuto(AutoDto auto)
@@ -74,7 +87,14 @@ namespace AutoReservation.Service.Wcf
         public void UpdateKunde(KundeDto modified, KundeDto original)
         {
             WriteActualMethod();
-            _businessComponent.UpdateKunde(modified.ConvertToEntity(),original.ConvertToEntity());
+            try
+            {
+                _businessComponent.UpdateKunde(modified.ConvertToEntity(), original.ConvertToEntity());
+            }
+            catch (LocalOptimisticConcurrencyException<Kunde> e)
+            {
+                throw new FaultException<KundeDto>(e.MergedEntity.ConvertToDto());
+            }
         }
 
         public void DeleteKunde(KundeDto kunde)
@@ -107,7 +127,14 @@ namespace AutoReservation.Service.Wcf
         public void UpdateReservation(ReservationDto modified, ReservationDto original)
         {
             WriteActualMethod();
-            _businessComponent.UpdateReservation(modified.ConvertToEntity(),original.ConvertToEntity());
+            try
+            {
+                _businessComponent.UpdateReservation(modified.ConvertToEntity(), original.ConvertToEntity());
+            }
+            catch (LocalOptimisticConcurrencyException<Reservation> e)
+            {
+                throw new FaultException<ReservationDto>(e.MergedEntity.ConvertToDto());
+            }
         }
 
         public void DeleteReservation(ReservationDto reservation)
