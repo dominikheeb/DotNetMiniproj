@@ -69,6 +69,7 @@ namespace AutoReservation.Common.DataTransferObjects
             set
             {
                 _auto = value;
+                _autoId = value.Id;
                 this.OnPropertyChanged(p => p.Auto);
             }
         }
@@ -79,6 +80,7 @@ namespace AutoReservation.Common.DataTransferObjects
             set
             {
                 _kunde = value;
+                _kundeId = value.Id;
                 this.OnPropertyChanged(p => p.Kunde);
             }
         }

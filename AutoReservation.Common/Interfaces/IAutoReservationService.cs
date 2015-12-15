@@ -8,7 +8,11 @@ namespace AutoReservation.Common.Interfaces
     [ServiceContract]
     public interface IAutoReservationService
     {
-        Collection<AutoDto> Autos { get; }
+        Collection<AutoDto> Autos
+        {
+            [OperationContract]
+            get;
+        }
 
         [OperationContract]
         AutoDto GetAuto(int autoId);
@@ -22,7 +26,11 @@ namespace AutoReservation.Common.Interfaces
         [OperationContract]
         void DeleteAuto(AutoDto auto);
 
-        Collection<KundeDto> Kunden { get; }
+        Collection<KundeDto> Kunden
+        {
+            [OperationContract]
+            get;
+        }
 
         [OperationContract]
         KundeDto GetKunde(int kundeId);
@@ -35,8 +43,12 @@ namespace AutoReservation.Common.Interfaces
 
         [OperationContract]
         void DeleteKunde(KundeDto kunde);
-        
-        Collection<ReservationDto> Reservationen { get; }
+
+        Collection<ReservationDto> Reservationen
+        {
+            [OperationContract]
+            get;
+        }
 
         [OperationContract]
         ReservationDto GetReservation(int reservationNr);
