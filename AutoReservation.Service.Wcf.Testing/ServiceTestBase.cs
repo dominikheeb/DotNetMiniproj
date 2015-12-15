@@ -3,7 +3,6 @@ using AutoReservation.Common.Interfaces;
 using AutoReservation.TestEnvironment;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 
@@ -201,14 +200,56 @@ namespace AutoReservation.Service.Wcf.Testing
         [ExpectedException(typeof(FaultException<KundeDto>))]
         public void Test_UpdateKundeWithOptimisticConcurrency()
         {
-            Assert.Inconclusive("Test not implemented.");
+            KundeDto originalKunde1 = Target.GetKunde(1);
+            KundeDto originalKunde2 = Target.GetKunde(1);
+
+            KundeDto kunde1 = new KundeDto
+            {
+                Id = originalKunde1.Id,
+                Vorname = originalKunde1.Vorname,
+                Nachname = originalKunde1.Nachname,
+                Geburtsdatum = originalKunde1.Geburtsdatum.AddDays(2)
+            };
+
+            KundeDto kunde2 = new KundeDto
+            {
+                Id = originalKunde2.Id,
+                Vorname = originalKunde2.Vorname,
+                Nachname = originalKunde2.Nachname,
+                Geburtsdatum = originalKunde2.Geburtsdatum.AddDays(3)
+            };
+
+            Target.UpdateKunde(kunde1, originalKunde1);
+            Target.UpdateKunde(kunde2, originalKunde2);
         }
 
         [TestMethod]
         [ExpectedException(typeof(FaultException<ReservationDto>))]
         public void Test_UpdateReservationWithOptimisticConcurrency()
         {
-            Assert.Inconclusive("Test not implemented.");
+            ReservationDto originalReservation1 = Target.GetReservation(1);
+            ReservationDto originalReservation2 = Target.GetReservation(1);
+
+            ReservationDto reservation1 = new ReservationDto
+            {
+                ReservationNr = originalReservation1.ReservationNr,
+                Auto = originalReservation1.Auto,
+                Kunde = originalReservation1.Kunde,
+                Von = originalReservation1.Von,
+                Bis = originalReservation1.Bis.AddDays(2)
+            };
+
+            ReservationDto reservation2 = new ReservationDto
+            {
+                ReservationNr = originalReservation2.ReservationNr,
+                Auto = originalReservation2.Auto,
+                Kunde = originalReservation2.Kunde,
+                Von = originalReservation2.Von,
+                Bis = originalReservation2.Bis.AddDays(2)
+            };
+
+            Target.UpdateReservation(reservation1, originalReservation1);
+            Target.UpdateReservation(reservation2, originalReservation2);
         }
 
         [TestMethod]
