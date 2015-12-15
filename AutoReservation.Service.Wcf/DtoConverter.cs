@@ -107,7 +107,9 @@ namespace AutoReservation.Service.Wcf
                 Von = dto.Von,
                 Bis = dto.Bis,
                 AutoId = dto.Auto.Id,
-                KundeId = dto.Kunde.Id
+                Auto = ConvertToEntity(dto.Auto),
+                KundeId = dto.Kunde.Id,
+                Kunde = ConvertToEntity(dto.Kunde)
             };
 
             return reservation;
@@ -122,7 +124,9 @@ namespace AutoReservation.Service.Wcf
                 Von = reservation.Von,
                 Bis = reservation.Bis,
                 Auto = ConvertToDto(reservation.Auto),
-                Kunde = ConvertToDto(reservation.Kunde)
+                AutoId = reservation.AutoId,
+                Kunde = ConvertToDto(reservation.Kunde),
+                KundeId = reservation.KundeId
             };
         }
         public static List<Reservation> ConvertToEntities(this IEnumerable<ReservationDto> dtos)

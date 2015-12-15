@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using System.Text;
 using AutoReservation.Common.Extensions;
 using AutoReservation.Common.DataTransferObjects.Core;
 
 namespace AutoReservation.Common.DataTransferObjects
 {
+    [DataContract]
     public class ReservationDto : DtoBase<ReservationDto>
     {
+        [DataMember]
         private int _reservationNr;
         public int ReservationNr
         {
@@ -18,6 +21,7 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
+        [DataMember]
         private int _autoId;
         public int AutoId
         {
@@ -29,6 +33,7 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
+        [DataMember]
         private int _kundeId;
         public int KundeId
         {
@@ -40,6 +45,7 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
+        [DataMember]
         private DateTime _von;
         public System.DateTime Von
         {
@@ -51,6 +57,7 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
+        [DataMember]
         private DateTime _bis;
         public System.DateTime Bis
         {
@@ -62,6 +69,7 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
+        [DataMember]
         private AutoDto _auto;
         public virtual AutoDto Auto
         {
@@ -69,18 +77,17 @@ namespace AutoReservation.Common.DataTransferObjects
             set
             {
                 _auto = value;
-                _autoId = value.Id;
                 this.OnPropertyChanged(p => p.Auto);
             }
         }
 
+        [DataMember]
         private KundeDto _kunde;
         public virtual KundeDto Kunde {
             get { return _kunde; }
             set
             {
                 _kunde = value;
-                _kundeId = value.Id;
                 this.OnPropertyChanged(p => p.Kunde);
             }
         }

@@ -4,6 +4,7 @@ using AutoReservation.TestEnvironment;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 
 namespace AutoReservation.Service.Wcf.Testing
@@ -89,12 +90,9 @@ namespace AutoReservation.Service.Wcf.Testing
 
             // check if auto exists
             Assert.AreEqual(4, Target.Autos.Count);
-            AutoDto auto = Target.GetAuto(4);
-            Assert.AreEqual(AutoKlasse.Mittelklasse, auto.AutoKlasse);
-            Assert.AreEqual(0, auto.Basistarif);
-            Assert.AreEqual(10, auto.Tagestarif);
-            Assert.AreEqual(4, auto.Id);
-            Assert.AreEqual("Ferrari Enzo", auto.Marke);
+
+            Assert.IsNotNull(Target.Autos.FirstOrDefault(auto => auto.AutoKlasse.Equals(AutoKlasse.Mittelklasse) 
+            && auto.Marke.Equals("Ferrari Enzo") && auto.Tagestarif == 10));
         }
 
         [TestMethod]
@@ -110,20 +108,19 @@ namespace AutoReservation.Service.Wcf.Testing
             Target.InsertKunde(newKunde);
             // Check if kunde exists
             Assert.AreEqual(5, Target.Kunden.Count);
-            KundeDto kunde = Target.GetKunde(5);
-            Assert.AreEqual(5, kunde.Id);
-            Assert.AreEqual("Max", kunde.Vorname);
-            Assert.AreEqual("Muster", kunde.Nachname);
-            Assert.AreEqual(new DateTime(2000, 1, 1), kunde.Geburtsdatum);
+
+            Assert.IsNotNull(Target.Kunden.FirstOrDefault(kun => kun.Vorname.Equals("Max") && kun.Nachname.Equals("Muster")));
         }
 
         [TestMethod]
         public void Test_InsertReservation()
         {
+            AutoDto auto = Target.GetAuto(1);
+            KundeDto kunde = Target.GetKunde(1);
             ReservationDto newReservation = new ReservationDto
             {
-                Auto = Target.GetAuto(1),
-                Kunde = Target.GetKunde(1),
+                Auto = auto,
+                Kunde = kunde,
                 Von = new DateTime(2010, 1, 1),
                 Bis = new DateTime(2010, 1, 2)
             };
@@ -131,12 +128,8 @@ namespace AutoReservation.Service.Wcf.Testing
             Target.InsertReservation(newReservation);
             // Check if reservation exists
             Assert.AreEqual(4, Target.Reservationen.Count);
-            ReservationDto reservation = Target.GetReservation(4);
-            Assert.AreEqual(4, reservation.ReservationNr);
-            Assert.AreEqual(1, reservation.AutoId);
-            Assert.AreEqual(1, reservation.KundeId);
-            Assert.AreEqual(new DateTime(2010, 1, 1), reservation.Von);
-            Assert.AreEqual(new DateTime(2010, 1, 2), reservation.Bis);
+
+            Assert.IsNotNull(Target.Reservationen.FirstOrDefault(res => res.Kunde.Id == kunde.Id && res.Auto.Id == auto.Id));
         }
 
         [TestMethod]
@@ -180,7 +173,7 @@ namespace AutoReservation.Service.Wcf.Testing
         public void Test_UpdateAutoWithOptimisticConcurrency()
         {
             AutoDto originalAuto1 = Target.GetAuto(1);
-            AutoDto originalAuto2 = Target.GetAuto(2);
+            AutoDto originalAuto2 = Target.GetAuto(1);
 
             AutoDto auto1 = new AutoDto
             {
@@ -197,7 +190,7 @@ namespace AutoReservation.Service.Wcf.Testing
                 Basistarif = originalAuto2.Basistarif,
                 Id = originalAuto2.Id,
                 Marke = originalAuto2.Marke,
-                Tagestarif = originalAuto2.Tagestarif + 10
+                Tagestarif = originalAuto2.Tagestarif + 20
             };
 
             Target.UpdateAuto(auto1, originalAuto1);

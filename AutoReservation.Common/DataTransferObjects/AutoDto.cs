@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using System.Text;
 using AutoReservation.Common.DataTransferObjects.Core;
 using AutoReservation.Common.Extensions;
 
 namespace AutoReservation.Common.DataTransferObjects
 {
+    [DataContract]
     public class AutoDto : DtoBase<AutoDto>
     {
+        [DataMember]
         private int _id;
         public int Id
         {
@@ -18,6 +21,7 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
+        [DataMember]
         private string _marke;
         public string Marke
         {
@@ -29,6 +33,7 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
+        [DataMember]
         private AutoKlasse _autoKlasse;
         public AutoKlasse AutoKlasse
         {
@@ -40,6 +45,7 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
+        [DataMember]
         private int _tagestarif;
         public int Tagestarif
         {
@@ -51,6 +57,7 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
+        [DataMember]
         private int _basistarif;
         public int Basistarif
         {
