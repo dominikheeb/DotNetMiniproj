@@ -13,8 +13,9 @@ namespace AutoReservation.Ui.Factory
         public IAutoReservationService GetService()
         {
             var bind = new BasicHttpBinding();
-            var addr = new EndpointAddress("http://localhost:7876/AutoReservationService");
-            var factory = new ChannelFactory<IAutoReservationService>(bind, addr);
+            //var addr = new EndpointAddress("http://localhost:8732/AutoReservationService");
+            //var factory = new ChannelFactory<IAutoReservationService>(bind, addr);
+            var factory = new ChannelFactory<IAutoReservationService>("AutoReservationService");
             // Proxy erzeugen
             return factory.CreateChannel();
         }
